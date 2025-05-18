@@ -1,3 +1,95 @@
+:root {
+  --sky-blue: #87CEEB;
+  --sky-blue-dark: #5F9EA0;
+  --white: #FFFFFF;
+  --gray: #F0F0F0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--sky-blue);
+  background: linear-gradient(135deg, var(--sky-blue), var(--sky-blue-dark));
+}
+
+.login-box {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-box h2 {
+  color: var(--sky-blue-dark);
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.input-group input {
+  width: 90%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  border-color: var(--sky-blue);
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--sky-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: var(--sky-blue-dark);
+}
+
+.error-message {
+  color: #FF3333;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-links a {
+  color: var(--sky-blue-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
 /* 天空蓝主题 */
 :root {
   --sky-blue: #87CEEB;
@@ -78,6 +170,7 @@
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-left: 0%;
   width: 90%;
   max-width: 400px;
   text-align: center;

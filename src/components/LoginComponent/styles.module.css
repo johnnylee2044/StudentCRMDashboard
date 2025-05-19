@@ -1,0 +1,69 @@
+/* 动态自然背景 */
+.animatedBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 50%, #4fc3f7 100%);
+  overflow: hidden;
+}
+
+.animatedBackground::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><path fill="rgba(255,255,255,0.3)" d="M400,100c50,0 50,50 100,50s50,-50 100,-50s50,50 100,50s50,-50 100,-50s50,100 100,100s50,-100 100,-100s50,150 100,150s50,-150 100,-150s50,200 100,200s50,-200 100,-200" /></svg>');
+  animation: cloudMove 60s linear infinite;
+}
+
+@keyframes cloudMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%, 50%); }
+}
+
+/* 登录容器 */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* 登录卡片 */
+.loginCard {
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.loginCard :global(.ant-card-head) {
+  border-bottom: none;
+}
+
+.loginCard :global(.ant-card-head-title) {
+  text-align: center;
+  font-size: 24px;
+  color: #1890ff;
+}
+
+/* 表单样式 */
+.loginForm :global(.ant-form-item) {
+  margin-bottom: 20px;
+}
+
+.loginForm :global(.ant-input-affix-wrapper) {
+  padding: 10px 11px;
+}
+
+.loginButton {
+  width: 100%;
+  height: 40px;
+  font-weight: bold;
+}

@@ -4,9 +4,12 @@ import React from 'react';
 import styles from './styles.module.css';
 
 const LoginPage: React.FC = () => {
+
+
   const [form] = Form.useForm();
 
   const onFinish = async (values: { username: string; password: string }) => {
+    console.log('Login values:', values);
     try {
       console.log('Login value:', values);
       message.success('Login success!');

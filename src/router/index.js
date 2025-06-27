@@ -1,6 +1,6 @@
-import DashLayout from '../pages/Layout/index.tsx'
+import DashLayout from '../pages/Layout'
 import LoginPage from '@/pages/Login'
-import NotFound from '@/pages/404/index.tsx'
+import NotFound from '@/pages/404'
 
 import{createBrowserRouter} from 'react-router-dom'
 

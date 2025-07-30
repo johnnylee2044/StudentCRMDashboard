@@ -1,14 +1,20 @@
-import React,{useState} from 'react';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import React, { Children, use, useState } from 'react';
+import { LaptopOutlined, NotificationOutlined, UserOutlined,LoginOutlined,QuestionCircleOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme,Avatar } from 'antd';
-
+import { Layout, Menu, theme,Avatar,Typography,Dropdown,Modal } from 'antd';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+const {Text} = Typography;
 const { Header, Content, Sider } = Layout;
 
 const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
   key,
   label: `nav ${key}`,
 }));
+//header bar
+
+
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   (icon, index) => {
@@ -23,17 +29,55 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
         return {
           key: subKey,
           label: `option${subKey}`,
+          
         };
       }),
     };
   },
 );
 
-const DashLayout: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
+
+
+const DashBoard: React.FC = () => {
+  const selector=useSelector((state:any)=>state.user.username)
+  const navigate=useNavigate()
+  const [isModalOpen,setIsModalOpen]=useState(false)
+
+  const logout=()=>{
+  Cookies.remove('token');
+  navigate('/login');
+  }
+   const handleOk = () => {
+    setIsModalOpen(false);
+    logout()
+  };
+const handleLogout = () => {
+    setIsModalOpen(true);
+  };
+
+  console.log("this is selector",selector)
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const avatarMenu:MenuProps["items"]=[
+  {
+    key:"1",
+    label:'Profile',
+    onClick:()=>navigate('/profile')
+  },
+  {
+    key:"2",
+    label:'Logout',
+    onClick:handleLogout,
+    icon:<LoginOutlined />
+  }
+  
+]
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <Layout>
@@ -46,16 +90,33 @@ const DashLayout: React.FC = () => {
           items={items1}
           style={{ flex: 1, minWidth: 0 }}
         />
-
-        {/* Avatar links to user center */}
-         <a href="https://ant.design">
-        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-        </a>
+       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '0 16px' }}>
+    <Text style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '16px', fontWeight: 500 }}>
+      {selector}
+    </Text>
+    <Dropdown menu={{items:avatarMenu,style:{textAlign:'center'}}} placement='bottom'
+    overlayStyle={{width:100, minWidth:50}}
+    
+    >
+    <Avatar size={64} icon={<UserOutlined />} />
+    </Dropdown>
+      <Modal
+        title="Logout"
+        closable={{ 'aria-label': 'Custom Close Button' }}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={400}
+        centered
+        
+      >
+        <p>Are you sure to logout?</p>
+      </Modal>
+  </div>
+        
       </Header>
       <Layout>
-        <Sider width={200} 
-        collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
-        style={{ background: colorBgContainer,display: 'flex', flexDirection: 'column',height: '100vh' }}>
+        <Sider width={200} style={{ background: colorBgContainer }}>
           <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
@@ -65,20 +126,16 @@ const DashLayout: React.FC = () => {
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb
-            items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-            style={{ margin: '16px 0' }}
-          />
           <Content
             style={{
               padding: 24,
-              margin: 0,
-              minHeight: 280,
+              margin: '16px',
+              minHeight: '100vh',
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
           >
-            Content
+            <Outlet/>
           </Content>
         </Layout>
       </Layout>
@@ -86,4 +143,4 @@ const DashLayout: React.FC = () => {
   );
 };
 
-export default DashLayout;
+export default DashBoard;

@@ -1,46 +1,58 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Card, Form, Input, ConfigProvider, message,Alert } from 'antd';
-import React from 'react';
-import axios from 'axios';
-import BASEURL from '@/constants/index'
+import { Button, Card, Form, Input, ConfigProvider, message } from 'antd';
+import React, { use, useEffect } from 'react';
 import styles from './styles.module.css';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLogin, setUsername } from '@/store/modules/user';
+import { AppDispatch } from '@/store';
+import { useNavigate } from 'react-router-dom';
+import store from '@/store';
+import Cookies from 'js-cookie';
 const LoginCard: React.FC = () => {
 
-
+  const [messageApi, contextHolder]=message.useMessage();
+  const dispatch=useDispatch<AppDispatch>();
   const [form] = Form.useForm();
-
-  const LoginError=(message:string)=>{
-    return(
-       <Alert
-      message="Error"
-      description={message}
-      type="error"
-      showIcon
-    />
-    )
-  }
-  const onFinish = async (values: { username: string; password: string }) => {
-
+  const selector = useSelector((state:any) => state.user.token);
+  const navigate=useNavigate();
+  const onFinish = async (values:any) => {
+    
+    
+    
     try {
-       const res = await axios.post(
-      BASEURL+'/login',
+      
+      const data=await dispatch(fetchLogin(values)).unwrap();
+      const message=data.message;
+      const code=data.code;
+      console.log("this is  message",message)  
+      console.log("this is selector",selector)    
+      if(code===200)
       {
-        username: values.username,
-        password: values.password,
-      }
-    );
-      console.log("response in the data",res.data);
-      if (res.data.code === '200') {
-      message.success('Login success!');
-      window.location.href = '/dashboard';
-    } else {
-      return LoginError(res.data.message)
-    }
+         messageApi.open({
+          type: 'success',
+          content: message,
+        });
+         dispatch(setUsername(values.username))
+        setTimeout(()=>{
+          navigate('/dashboard')
+        },3000)
 
- 
+       
+      }
+      else 
+        {
+
+        messageApi.open({
+          type: 'error',
+          content: message,
+        });
+        
+        return
+        
+      }
+      
     } catch (error) {
-      return LoginError("Something went wrong! Please try again later.")
+      return console.error("Something went wrong! Please try again later.")
     }
   };
 
@@ -49,6 +61,7 @@ const LoginCard: React.FC = () => {
       <div className={styles.animatedBackground}>
         <div className={styles.loginContainer}>
           <Card className={styles.loginCard} title="POS System Login">
+            {contextHolder}
             <Form
               form={form}
               name="login"

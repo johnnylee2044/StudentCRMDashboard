@@ -29,4 +29,4 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} \
-            "cd /var/www/myapp && git pull && npm install && pm2 restart all"
+            "cd /var/www/myapp && git pull && npm install && pm2 restart all" 

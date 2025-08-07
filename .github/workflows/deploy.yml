@@ -2,6 +2,7 @@ name: Deploy to EC2
 on:
   push:
     branches: [ "frontend" ]
+  workflow_dispatch: 
 
 jobs:
   deploy:

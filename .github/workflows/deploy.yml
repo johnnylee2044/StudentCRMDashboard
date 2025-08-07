@@ -2,8 +2,8 @@ name: Deploy to EC2
 
 on:
   push:
-    branches:
-      - frontend-pos   # Change this to your actual branch
+    branches: [ "frontend-pos" ]
+              # Change this to your actual branch
 
 jobs:
   deploy:

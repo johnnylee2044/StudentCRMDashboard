@@ -1,13 +1,14 @@
 name: Deploy to EC2
-
 on:
   push:
-    branches:
-      - frontend-pos
+    branches: [ "frontend-pos" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -19,47 +20,23 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Add SSH Key
+      - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Deploy to EC2
+      - name: Add EC2 to known_hosts
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} << 'EOF'
-            set -e
+          ssh-keyscan ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
 
-            # Update system & install dependencies
-            sudo yum update -y
-            sudo yum install -y git
-
-            # Install Node.js 18 (only if not already installed)
-            if ! command -v node &> /dev/null; then
-              curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-              sudo yum install -y nodejs
-            fi
-
-            # Clone repo if it doesn't exist
-            if [ ! -d "Pos-System" ]; then
-              git clone https://github.com/johnnylee2044/Pos-System.git
-            fi
-
-            cd Pos-System
-            git checkout frontend-pos
-            git pull origin frontend-pos
-
-            # Install dependencies
-            npm install
-
-            # Kill anything on port 3000
-            fuser -k 3000/tcp || true
-
-            # Optional: Forward port 80 to 3000 (needs sudo)
-            if ! sudo iptables -t nat -C PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000 2>/dev/null; then
-              sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
-            fi
-
-            # Start the app
-            nohup npm run start > app.log 2>&1 &
-          EOF
+      - name: Deploy via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} "
+            cd /var/www/myapp || exit 1 &&
+            git pull || exit 1 &&
+            npm install || exit 1 &&
+            pm2 restart all || exit 1
+          "
+        timeout-minutes: 10

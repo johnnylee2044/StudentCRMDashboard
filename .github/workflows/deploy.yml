@@ -29,5 +29,16 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} \
-            "cd /var/www/myapp && git pull && npm install && pm2 restart all" 
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} << 'EOF'
+            if [ ! -d "/var/www/myapp" ]; then
+              mkdir -p /var/www/myapp
+            fi
+            cd /var/www/myapp
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/johnnylee2044/Pos-System.git .
+            else
+              git pull
+            fi
+            npm install
+            pm2 restart all
+          EOF

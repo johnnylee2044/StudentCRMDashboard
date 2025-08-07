@@ -1,15 +1,13 @@
 name: Deploy to EC2
+
 on:
   push:
-    branches: [ "frontend" ]
-  workflow_dispatch: 
+    branches:
+      - frontend-pos   # Change this to your actual branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write  
-      contents: read   
 
     steps:
       - name: Checkout code
@@ -21,7 +19,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Install SSH key
+      - name: Add SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -30,18 +28,26 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} << 'EOF'
+            # Update and install dependencies
             sudo yum update -y
-            sudo yum install -y git
+            sudo yum install git -y
             curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
             sudo yum install -y nodejs
-            sudo npm install -g pm2
-            mkdir -p /var/www/myapp
-            cd /var/www/myapp
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/johnnylee2044/Pos-System.git .
-            else
-              git pull
+
+            # Clone the repo if it doesn't exist
+            if [ ! -d "Pos-System" ]; then
+              git clone https://github.com/johnnylee2044/Pos-System.git
             fi
+
+            cd Pos-System
+            git pull origin frontend-pos
+
+            # Install dependencies and run app
             npm install
-            pm2 restart all || pm2 start npm --name myapp -- start
+
+            # Kill any running app on port 3000
+            fuser -k 3000/tcp || true
+
+            # Start app in background
+            nohup npm run start > output.log 2>&1 &
           EOF

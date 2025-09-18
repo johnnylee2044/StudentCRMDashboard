@@ -1,6 +1,6 @@
 # Undergraduate CRM Frontend
 
-This is the frontend of the internal CRM dashboard for **undergraduation.com**, built with **React** and **Ant Design**. The application allows internal staff to manage student interactions, monitor application progress, communicate with students, and leverage AI for academic assistance.
+This is the frontend of the internal CRM dashboard, built with **React** and **Ant Design**. The application allows internal staff to manage student interactions, monitor application progress, communicate with students, and leverage AI for academic assistance.
 
 ---
 
@@ -54,5 +54,31 @@ This is the frontend of the internal CRM dashboard for **undergraduation.com**, 
 - **CSS Modules / Custom CSS** for styling
 
 
+---
 
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [<frontend-repo-url>](https://github.com/johnnylee2044/StudentCRMDashboard.git)
+cd dashboardFrontend
+
+2.Install dependencies:
+npm install
+
+3.Run the development server:
+
+npm run start
+
+Usage
+
+Navigate to the Student Directory to view all students.
+
+Use filters and search to find specific students.
+
+Click on a student to view their profile, interactions, communications, and internal notes.
+
+Open the AI Chat to ask questions or provide guidance to students.
+
+All communications and notes can be logged and tracked in real time.
 

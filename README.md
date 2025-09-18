@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Undergraduate CRM Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the internal CRM dashboard, built with **React** and **Ant Design**. The application allows internal staff to manage student interactions, monitor application progress, communicate with students, and leverage AI for academic assistance.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### AI Chat
+- Chat with an AI academic advisor using a modern chat interface.
+- Messages are streamed line by line from the backend.
+- Shows AI and user avatars with timestamps.
+- Handles errors gracefully if the backend fails to respond.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Student Directory
+- Table view of all students with quick search and filters.
+- Key columns:
+  - Name
+  - Email
+  - Country
+  - Application Status (`Exploring`, `Shortlisting`, `Applying`, `Submitted`)
+  - Last Active
+- Click on a student to open their detailed profile.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Student Profile
+- **Basic Info**: Name, email, phone, grade, country, application status, and last active.
+- **Interaction Timeline**: Login activity, AI questions, document submissions.
+- **Communications**: Logs of emails, SMS, and other communications.
+- **Internal Notes**: Add, edit, or delete internal notes about the student.
+- **Progress Bar**: Visual indicator of application stage.
 
-### `npm test`
+### Communication Tools
+- Log communications manually (e.g., "Called student to discuss essays").
+- Mock follow-up email functionality.
+- Schedule reminders or tasks for internal team members.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Filters & Insights
+- Quick filters such as:
+  - Students not contacted in 7 days
+  - High intent
+  - Needs essay help
+- Display summary stats like:
+  - Number of active students
+  - Students in essay stage
+- Search bar to find students by name, email, or country.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
+- **React** (with TypeScript)
+- **Ant Design** for UI components
+- **Axios** for API requests
+- **React Router** for navigation
+- **CSS Modules / Custom CSS** for styling
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository:
+```bash
+git clone [<frontend-repo-url>](https://github.com/johnnylee2044/StudentCRMDashboard.git)
+cd dashboardFrontend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2.Install dependencies:
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3.Run the development server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm run start
 
-## Learn More
+Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Navigate to the Student Directory to view all students.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Use filters and search to find specific students.
 
-### Code Splitting
+Click on a student to view their profile, interactions, communications, and internal notes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Open the AI Chat to ask questions or provide guidance to students.
 
-### Analyzing the Bundle Size
+All communications and notes can be logged and tracked in real time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

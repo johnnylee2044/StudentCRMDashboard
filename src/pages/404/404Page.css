@@ -1,4 +1,4 @@
-/* 基础样式 */
+
 .nature-404-container {
   min-height: 100vh;
   display: flex;
@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-/* 波浪画布 */
+
 .wave-canvas {
   position: absolute;
   top: 0;
@@ -22,7 +22,6 @@
   pointer-events: none;
 }
 
-/* 云朵动画 */
 .floating-cloud {
   position: absolute;
   top: 5rem;
@@ -33,7 +32,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* 主要内容 */
+
 .error-content {
   position: relative;
   z-index: 10;
@@ -54,7 +53,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* 山脉装饰 */
+
 .mountain-decoration {
   display: flex;
   justify-content: center;
@@ -67,14 +66,14 @@
   height: 5rem;
 }
 
-/* 文字描述 */
+
 .error-description {
   font-size: 1.125rem;
   margin-bottom: 2rem;
   line-height: 1.6;
 }
 
-/* 返回按钮 */
+
 .home-button {
   padding: 0.75rem 1.5rem;
   background-color: #2563eb;
@@ -94,7 +93,7 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* 底部波浪 */
+
 .bottom-wave {
   position: absolute;
   bottom: 0;
@@ -112,7 +111,7 @@
   opacity: 0.5;
 }
 
-/* 漂浮树叶 */
+
 .floating-leaf {
   position: absolute;
   top: 25%;
@@ -124,7 +123,7 @@
   transform: rotate(45deg);
 }
 
-/* 动画定义 */
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(45deg);

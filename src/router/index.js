@@ -6,32 +6,29 @@ import{createBrowserRouter} from 'react-router-dom'
 import { lazy } from 'react'
 import { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
+import StudentList from '@/components/StudentList/studentList'
+import AiChatWindow from '@/components/AiChat/aiChat'
 
-const SimCard=lazy(()=>import('@/components/SimCard/simcard'))
-const EMP=lazy(()=>import('@/components/EmpModules'))
-const Sales=lazy(()=>import('@/components/Sales/sales'))
+
 const router =createBrowserRouter([
-     {
-    path: '/',
-    element: <Navigate to="/login" replace />
-    },
+    //  {
+    // path: '/',
+    // element: <Navigate to="/login" replace />
+    // },
     {
         path:'/dashboard',
         // element:<DashLayout/><AuthRoute></AuthRoute>,
         element:<DashLayout/>,
         children:[
             {
-                path:'employees',
-                element:<Suspense fallback="Loading"><EMP/></Suspense>
+                path:'students',
+                element:<Suspense fallback="Loading"><StudentList/></Suspense>
             },
             {
-                path:'sales',
-                element:<Suspense fallback="Loading"><Sales/></Suspense>
-            },
-            {
-                path:'simcard',
-                element:<Suspense fallback="Loading"><SimCard/></Suspense>
-            },
+                path:'aichat',
+                element:<AiChatWindow/>
+            }
+    
             // {
             //     path:'test',
             //     element:<Suspense fallback="Loading"></Suspense>

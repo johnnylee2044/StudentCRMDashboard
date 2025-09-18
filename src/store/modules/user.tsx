@@ -7,7 +7,7 @@ const userStore=createSlice({
     name:'user',
     initialState:{
        token:Cookies.get('token')||'',
-       username:''
+       account:''
     },
     reducers:{
         setToken:(state,action)=>{
@@ -15,8 +15,8 @@ const userStore=createSlice({
             Cookies.set('token',action.payload)
         }
         ,
-        setUsername:(state,action)=>{
-            state.username=action.payload
+        setAccount:(state,action)=>{
+            state.account=action.payload
             
         },
         
@@ -24,7 +24,7 @@ const userStore=createSlice({
 
     },
 })
-const {setToken,setUsername}=userStore.actions
+const {setToken,setAccount}=userStore.actions
 
 
 // const fetchLogin=(loginForm:any)=>{ 
@@ -44,11 +44,14 @@ const {setToken,setUsername}=userStore.actions
 // }
 
 const fetchLogin=createAsyncThunk('user/fetchLogin',async (loginForm:any,{dispatch})=>{ 
-   const res= await request.post('/login',loginForm)
-   dispatch(setToken(res.data.data))
+   
+   const res= await request.post('api/auth/login',loginForm)
+   dispatch(setToken(res.data.token))
    return res.data
 })
+
+
 const reducer=userStore.reducer
 
-export {fetchLogin,setToken,setUsername}
+export {fetchLogin,setToken,setAccount}
 export default reducer

@@ -9,8 +9,8 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(config => { 
-  console.log("it is printed in request interceptor")
-    if(config.url!=='/login'){
+  console.log("it is printed in request interceptor",config.url)
+    if(config.url!=='api/auth/login'){
       const token=Cookies.get('token')
       if(token){
         console.log("it is printed",token)

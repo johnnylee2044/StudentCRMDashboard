@@ -11,13 +11,13 @@ import AiChatWindow from '@/components/AiChat/aiChat'
 
 
 const router =createBrowserRouter([
-    //  {
-    // path: '/',
-    // element: <Navigate to="/login" replace />
-    // },
+     {
+    path: '/',
+    element: <Navigate to="/login" replace />
+    },
     {
         path:'/dashboard',
-        // element:<DashLayout/><AuthRoute></AuthRoute>,
+        element:<AuthRoute><DashLayout/></AuthRoute>,
         element:<DashLayout/>,
         children:[
             {
@@ -29,10 +29,7 @@ const router =createBrowserRouter([
                 element:<AiChatWindow/>
             }
     
-            // {
-            //     path:'test',
-            //     element:<Suspense fallback="Loading"></Suspense>
-            // }
+    
         ]
     },
     {

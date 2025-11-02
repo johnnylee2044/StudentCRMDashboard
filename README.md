@@ -56,9 +56,9 @@ This is the backend service for the **Dashboard** project, a lightweight interna
 
 
 ### Clone the Repository
-git clone <your-repo-url>
-cd dashboard
-git checkout dashboard-Backend
+- git clone <your-repo-url>
+- cd dashboard
+- git checkout dashboard-Backend
 
 
 ### Demonstration

@@ -53,15 +53,21 @@ This is the backend service for the **Dashboard** project, a lightweight interna
 - MySQL 8+
 - (Optional) Postman for API testing
 
+
+
 ### Clone the Repository
-```bash
 git clone <your-repo-url>
 cd dashboard
 git checkout dashboard-Backend
 
 
-
-
 ### Demonstration
 https://www.loom.com/share/e84a508c2a0843188a8228ca769442e4
+
+
+
+
+
+
+
 
